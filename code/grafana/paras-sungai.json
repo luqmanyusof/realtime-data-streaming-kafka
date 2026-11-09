@@ -1,0 +1,57 @@
+{
+  "title": "Paras Sungai",
+  "uid": "paras-sungai",
+  "time": { "from": "now-15m", "to": "now" },
+  "timezone": "browser",
+  "schemaVersion": 41,
+  "panels": [
+    {
+      "id": 1,
+      "type": "timeseries",
+      "title": "Paras air (m)",
+      "gridPos": { "x": 0, "y": 0, "w": 24, "h": 11 },
+      "datasource": { "type": "hamedkarbasi93-kafka-datasource", "uid": "kafka" },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": { "type": "hamedkarbasi93-kafka-datasource", "uid": "kafka" },
+          "topicName": "telemetri-sungai",
+          "partition": "all",
+          "autoOffsetReset": "lastN",
+          "lastN": 500,
+          "timestampMode": "message",
+          "messageFormat": "json",
+          "keyFormat": "none"
+        }
+      ],
+      "transformations": [
+        { "id": "filterFieldsByName", "options": { "include": { "pattern": "time|stesen|paras_air" } } },
+        { "id": "partitionByValues", "options": { "fields": ["stesen"] } }
+      ]
+    },
+    {
+      "id": 2,
+      "type": "table",
+      "title": "Amaran banjir",
+      "gridPos": { "x": 0, "y": 11, "w": 24, "h": 7 },
+      "datasource": { "type": "hamedkarbasi93-kafka-datasource", "uid": "kafka" },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": { "type": "hamedkarbasi93-kafka-datasource", "uid": "kafka" },
+          "topicName": "amaran-banjir",
+          "partition": "all",
+          "autoOffsetReset": "lastN",
+          "lastN": 20,
+          "timestampMode": "message",
+          "messageFormat": "json",
+          "keyFormat": "none"
+        }
+      ],
+      "transformations": [
+        { "id": "filterFieldsByName", "options": { "include": { "pattern": "time|stesen|dari|kepada|paras_air" } } },
+        { "id": "sortBy", "options": { "sort": [{ "field": "time", "desc": true }] } }
+      ]
+    }
+  ]
+}

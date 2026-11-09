@@ -1,0 +1,10 @@
+# Connects Grafana to Kafka when Grafana starts, so you do not have to set it up by hand.
+apiVersion: 1
+datasources:
+  - name: kafka
+    uid: kafka
+    type: hamedkarbasi93-kafka-datasource
+    access: proxy
+    isDefault: true
+    jsonData:
+      bootstrapServers: kafka:29092

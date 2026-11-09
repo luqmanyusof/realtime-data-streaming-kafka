@@ -1,0 +1,11 @@
+{
+  "name": "kafka-lab",
+  "version": "1.0.0",
+  "description": "Lab project for Real-Time Data Streaming with Apache Kafka (Node.js)",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "kafkajs": "2.2.4",
+    "pg": "8.23.1"
+  }
+}
